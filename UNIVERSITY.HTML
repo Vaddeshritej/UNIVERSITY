@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tech Fest Portal</title>
+  <style>
+    /* General Body and Main Layout */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding-top: 60px; /* Space for fixed nav bar */
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    section {
+        background-color: #fff;
+        padding: 40px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3 {
+        color: #0056b3;
+        text-align: center;
+    }
+
+    /* Fixed Navigation Bar */
+    .fixed-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #004080;
+        color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .logo img {
+        height: 40px;
+    }
+    .nav-links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+    .nav-links li {
+        margin-right: 20px;
+    }
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .login-box input {
+        margin-right: 5px;
+        padding: 5px;
+        border: none;
+        border-radius: 4px;
+    }
+    .login-box button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    /* Banner Section */
+    .banner {
+        position: relative;
+        padding: 0;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .banner-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .banner-overlay h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        color: white;
+    }
+    .banner-overlay p {
+        font-size: 1.2em;
+    }
+
+    /* Image Gallery (CSS Grid) */
+    .image-gallery {
+        text-align: center;
+    }
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .gallery-grid img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Registration Form */
+    .registration-form {
+        text-align: center;
+    }
+    form {
+        max-width: 600px;
+        margin: 20px auto;
+        text-align: left;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .form-group input:invalid {
+        border-color: red;
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+        margin-top: 20px;
+    }
+    progress {
+        width: 100%;
+        height: 20px;
+    }
+
+    /* Buttons */
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .button-group button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+    }
+    .button-group button[type="submit"] {
+        background-color: #28a745;
+        color: white;
+    }
+    .button-group button[type="reset"] {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Calculators */
+    .calculators {
+        text-align: center;
+    }
+    .calculator-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .calculator-box {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex-basis: 300px;
+    }
+    .calculator-box h3 {
+        margin-top: 0;
+    }
+    .calculator-box button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    #bmiResult, #convertedAmount {
+        font-weight: bold;
+        color: #007bff;
+        font-size: 1.2em;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+        .nav-container {
+            flex-direction: column;
+        }
+        .nav-links {
+            margin-top: 10px;
+        }
+        .login-box {
+            margin-top: 10px;
+        }
+        .banner-overlay h1 {
+            font-size: 2em;
+        }
+        .calculator-container {
+            flex-direction: column;
+        }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="fixed-nav">
+    <div class="nav-container">
+      <div class="logo"><img src="https://cdn.prod.website-files.com/63a9fb94e473f36dbe99c1b1/671e7e1d679d80948b2b7f15_651bc886dd70424477208ca7_iI6qxSvZTY2zj5zbDAix.png" alt="Logo"></div>
+      <ul class="nav-links">
+        <li><a href="#banner">Home</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#registration">Register</a></li>
+        <li><a href="#calculators">Utilities</a></li>
+      </ul>
+      <div class="login-box">
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button>Login</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Banner -->
+    <section class="banner" id="banner">
+      <img src="https://karunya.edu/sites/default/files/logo.png.pagespeed.ce.0ueEiddfEk.png" alt="Banner" class="banner-image">
+      <div class="banner-overlay">
+        <h1>Welcome to Tech Fest</h1>
+        <p>Innovation • Technology • Creativity</p>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="image-gallery" id="gallery">
+      <h2>Event Highlights</h2>
+      <div class="gallery-grid">
+        <img src="https://media.licdn.com/dms/image/v2/D5622AQFd7SO3TN24xw/feedshare-shrink_800/B56ZQRojA5GQAg-/0/1735462631219?e=2147483647&v=beta&t=wd2JKshNXqahEuQ76fDQfErC5PgQO1uAoXfsmPXXE6Y" alt="Event 1">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY5quOx4ZApdlcT0dWtngCvlggcYLLEB2tXrO8yJXyQmVIE2OCUmB3rq6_qlsGaSfW6Gg&usqp=CAU" alt="Event 2">
+        <img src="https://karunya.edu/sites/default/files/img/food/faculties/WhatsApp,P20Image,P202023-10-16,P20at,P2012.43.52,P20PM,P20,281,29.jpeg.pagespeed.ce.jqOcy7G3Tf.jpg" alt="Event 3">
+      </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="registration-form" id="registration">
+      <h2>Online Registration</h2>
+      <form id="registrationForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email ID</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="role">Your Role</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="student">Student</option>
+            <option value="alumni">Alumni</option>
+            <option value="faculty">Faculty</option>
+            <option value="industry">Industry Professional</option>
+            <option value="guest">Guest</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="photo">Upload Photo</label>
+          <input type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+          <label for="comments">Comments</label>
+          <textarea id="comments" name="comments" rows="4"></textarea>
+        </div>
+
+        <div class="progress-bar-container">
+          <label for="progress">Form Completion</label>
+          <progress id="progress" value="0" max="10"></progress>
+        </div>
+
+        <div class="button-group">
+          <button type="submit">Submit Registration</button>
+          <button type="reset">Reset Form</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Calculators -->
+    <section class="calculators" id="calculators">
+      <h2>Utilities</h2>
+      <div class="calculator-container">
+        <div class="calculator-box bmi-calculator">
+          <h3>BMI Calculator</h3>
+          <div class="form-group">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" placeholder="e.g. 70" required>
+          </div>
+          <div class="form-group">
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" placeholder="e.g. 175" required>
+          </div>
+          <button id="calculateBmi">Calculate BMI</button>
+          <p>Your BMI is: <span id="bmiResult"></span></p>
+        </div>
+
+        <div class="calculator-box currency-converter">
+          <h3>Currency Converter</h3>
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="e.g. 100" required>
+          </div>
+          <div class="form-group">
+            <label for="fromCurrency">From</label>
+            <select id="fromCurrency">
+              <option value="usd">USD</option>
+              <option value="eur">EUR</option>
+              <option value="inr">INR</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="toCurrency">To</label>
+            <select id="toCurrency">
+              <option value="inr">INR</option>
+              <option value="usd">USD</option>
+              <option value="eur">EUR</option>
+            </select>
+          </div>
+          <p>Converted Amount: <span id="convertedAmount"></span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const registrationForm = document.getElementById('registrationForm');
+      const formInputs = registrationForm.querySelectorAll('input, select, textarea');
+      const progressBar = document.getElementById('progress');
+
+      // Progress bar
+      function updateProgress() {
+          let filledFields = 0;
+          formInputs.forEach(input => {
+              if (input.value.trim() !== '' && input.type !== 'submit' && input.type !== 'reset') {
+                  filledFields++;
+              }
+          });
+          progressBar.value = filledFields;
+      }
+      formInputs.forEach(input => {
+          input.addEventListener('input', updateProgress);
+          input.addEventListener('change', updateProgress);
+      });
+
+      // File upload validation
+      const photoInput = document.getElementById('photo');
+      photoInput.addEventListener('change', (event) => {
+          const file = event.target.files[0];
+          if (file && file.name.endsWith('.exe')) {
+              alert('Executable (.exe) files are not allowed.');
+              event.target.value = '';
+          }
+      });
+
+      // Form validation
+      registrationForm.addEventListener('submit', (event) => {
+          if (!registrationForm.checkValidity()) {
+              event.preventDefault();
+              alert('Please fill out all required fields correctly.');
+          }
+          const email = document.getElementById('email').value;
+          const phone = document.getElementById('phone').value;
+          const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+          const phoneRegex = /^[0-9]{10}$/;
+          if (!emailRegex.test(email)) {
+              event.preventDefault();
+              alert('Invalid email.');
+          }
+          if (!phoneRegex.test(phone)) {
+              event.preventDefault();
+              alert('Invalid phone number.');
+          }
+      });
+
+      // BMI Calculator
+      document.getElementById('calculateBmi').onclick = () => {
+          const weight = parseFloat(document.getElementById('weight').value);
+          const height = parseFloat(document.getElementById('height').value);
+          const bmiResult = document.getElementById('bmiResult');
+          if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+              bmiResult.textContent = 'Invalid input';
+              return;
+          }
+          const bmi = weight / Math.pow(height / 100, 2);
+          bmiResult.textContent = bmi.toFixed(2);
+      };
+
+      // Currency Converter
+      const currencyRates = {
+          usd: { inr: 83.5, eur: 0.93 },
+          eur: { inr: 89.5, usd: 1.07 },
+          inr: { usd: 0.012, eur: 0.011 }
+      };
+      function updateConversion() {
+          const amount = parseFloat($('#amount').val());
+          const fromCurrency = $('#fromCurrency').val();
+          const toCurrency = $('#toCurrency').val();
+          const convertedAmountElem = $('#convertedAmount');
+          if (isNaN(amount) || amount <= 0) {
+              convertedAmountElem.text('Invalid amount');
+              return;
+          }
+          let result;
+          if (fromCurrency === toCurrency) {
+              result = amount;
+          } else {
+              result = amount * currencyRates[fromCurrency][toCurrency];
+          }
+          convertedAmountElem.text(result.toFixed(2) + ' ' + toCurrency.toUpperCase());
+      }
+      $('#amount').on('keyup', updateConversion);
+      $('#fromCurrency').on('change', updateConversion);
+      $('#toCurrency').on('change', updateConversion);
+      updateConversion();
+    });
+  </script>
+</body>
+</html>
